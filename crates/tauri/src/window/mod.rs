@@ -7,7 +7,7 @@
 pub(crate) mod plugin;
 
 use tauri_runtime::{
-  dpi::{PhysicalPosition, PhysicalRect, PhysicalSize},
+  dpi::{PhysicalPosition, PhysicalRect, PhysicalSize, Position, Size},
   webview::PendingWebview,
 };
 pub use tauri_utils::{config::Color, WindowEffect as Effect, WindowEffectState as EffectState};
@@ -36,7 +36,6 @@ use crate::{
   image::Image,
   menu::{ContextMenu, Menu, MenuId},
   runtime::{
-    dpi::{Position, Size},
     UserAttentionType,
   },
   CursorIcon,
@@ -1047,8 +1046,8 @@ impl<R: Runtime> Window<R> {
   }
 
   /// Adds a new webview as a child of this window.
-  #[cfg(any(test, all(desktop, feature = "unstable")))]
-  #[cfg_attr(docsrs, doc(cfg(all(desktop, feature = "unstable"))))]
+  #[cfg(any(test, feature = "unstable"))]
+  #[cfg_attr(docsrs, doc(cfg(feature = "unstable")))]
   pub fn add_child<P: Into<Position>, S: Into<Size>>(
     &self,
     webview_builder: WebviewBuilder<R>,
